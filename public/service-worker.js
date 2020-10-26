@@ -15,9 +15,10 @@ const FILES_TO_CACHE = [
 const CACHE_NAME = "static-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
 ​
-//Install a service service worker 
-
-// install
+//Install a service service worker
+//// 1.Open a cache
+//// 2.Cache Our files 
+//// 3.Confirm whether all the required assets are cached or not 
 self.addEventListener("install", function (evt) {
   evt.waitUntil(
     caches
@@ -40,4 +41,21 @@ self.addEventListener("install", function (evt) {
       })
   );
   self.skipWaiting();
+});
+
+//Activate 
+self.addEventListener("activate", function (evt) {
+  evt.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(
+        keyList.map((key) => {
+          if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
+            console.log("Removing old cache data", key);
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
 });
