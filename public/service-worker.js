@@ -1,4 +1,3 @@
-//Create an array to store list of files that need to be cached into a const variable 
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
@@ -11,14 +10,8 @@ const FILES_TO_CACHE = [
     "/icons/icon-512x512.png",
     "styles.css"
   ];
-​//Initialize two variables with the name 
 const CACHE_NAME = "static-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
-​
-//Install a service service worker
-//// 1.Open a cache
-//// 2.Cache Our files 
-//// 3.Confirm whether all the required assets are cached or not 
 self.addEventListener("install", function (evt) {
   evt.waitUntil(
     caches
@@ -42,8 +35,6 @@ self.addEventListener("install", function (evt) {
   );
   self.skipWaiting();
 });
-
-//Activate 
 self.addEventListener("activate", function (evt) {
   evt.waitUntil(
     caches.keys().then((keyList) => {
@@ -59,9 +50,6 @@ self.addEventListener("activate", function (evt) {
   );
   self.clients.claim();
 });
-
-
-// fetch
 self.addEventListener("fetch", function (evt) {
   if (evt.request.url.includes("/api/")) {
     evt.respondWith(
@@ -74,7 +62,6 @@ self.addEventListener("fetch", function (evt) {
               if (response.status === 200) {
                 cache.put(evt.request.url, response.clone());
               }
-​
               return response;
             })
             .catch((err) => {
@@ -84,10 +71,8 @@ self.addEventListener("fetch", function (evt) {
         })
         .catch((err) => console.log(err))
     );
-​
     return;
   }
-​
   evt.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(evt.request).then((response) => {
