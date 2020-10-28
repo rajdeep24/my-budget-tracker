@@ -23,7 +23,6 @@ My-Budget-Tracker allows users provides a interface with an animated graph that 
 - Mongoose Schema
 - MongoDB
 - MongoDB Atlas
-- MVC Design
 - Robo 3T
 
 ## Links (Application & Repo)
