@@ -21,7 +21,6 @@ My-Budget-Tracker allows users provides a interface with an animated graph that 
 - jQuery
 - Express
 - Mongoose Schema
-- MongoDB
 - MongoDB Atlas
 - Robo 3T
 
